@@ -3,14 +3,15 @@ from data.user import User
 
 def dashboard(user_id: int):
 
-    """ Dashboard screen for bank """
+    """Dashboard screen for bank"""
 
-    user = User().get_one(id=user_id)
     stop = False
-    if user is None:
-        return
 
     while not stop:
+        user = User().get_one(id=user_id)
+
+        if user is None:
+            return
 
         template = f"""
 
