@@ -1,4 +1,5 @@
 from data.user import User
+from utilities.bank_action import BankAction
 
 
 def dashboard(user_id: int):
@@ -12,6 +13,8 @@ def dashboard(user_id: int):
 
         if user is None:
             return
+
+        bank_action = BankAction(user=user)
 
         template = f"""
 
@@ -27,5 +30,7 @@ def dashboard(user_id: int):
 
         """
         print(template)
-        choice = input("Enter choice: ")
-        pass
+        choice = int(input("Enter choice: "))
+
+        if choice == 1:
+            bank_action.deposit()
