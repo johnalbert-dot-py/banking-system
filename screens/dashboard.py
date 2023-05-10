@@ -22,7 +22,7 @@ def dashboard(user_id: int):
 
     Account Name: {user.first_name} {user.last_name}
     Account No: {user.bank.account_no}
-    Balance: {user.bank.balance}
+    Balance: {user.bank.balance:,}
 
     [1] Deposit
     [2] Withdraw
