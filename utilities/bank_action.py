@@ -3,7 +3,31 @@ from data.user import User
 
 class BankAction:
 
-    """A class for bank actions like deposit, withdraw, transfer"""
+    """
+    A class for bank actions like deposit, withdraw, transfer
+
+    Example:
+        ```python
+        from data.user import User
+        from utilities.bank_action import BankAction
+
+        user = User().get_one(bank_account_no="1234567890")
+        bank_action = BankAction(user=user)
+        bank_action.check_account_balance()
+        bank_action.deposit()
+        ```
+
+    Attributes:
+        user (User): The user object
+
+    Methods:
+        `get_user(account_no=None)`: A function for getting the user with updated data, if account_no is not provided, it will use the user's bank account number\n
+        `check_account_balance()`: A function for checking the user's account balance\n
+        `deposit()`: A function for depositing money to the user's account\n
+        `withdraw()`: A function for withdrawing money from the user's account\n
+        `transfer()`: A function for transferring money from the user's account to another user's account\n
+
+    """
 
     def __init__(self, user: User):
         self.user = user
