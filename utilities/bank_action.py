@@ -63,6 +63,7 @@ class BankAction:
                 balance=current_users_balance - int(amount),
                 condition={"account_no": self.user.bank_account_no},
             )
+            print(f"You have successfully withdrawn {amount}")
             return success
         print(
             f"You don't have sufficient funds, Your account balance is {self.user.bank.balance}"
@@ -78,7 +79,6 @@ class BankAction:
             to_user = self.get_user(account_no=user_id)
 
             if to_user:
-
                 # charge the current user
                 success = self.user.bank.save(
                     balance=self.user.bank.balance - int(amount),
@@ -90,6 +90,9 @@ class BankAction:
                     to_user.bank.save(
                         balance=to_user.bank.balance + int(amount),
                         condition={"account_no": to_user.bank_account_no},
+                    )
+                    print(
+                        f"{amount} successfully transferred to {to_user.first_name} {to_user.last_name}"
                     )
                     return True
                 return False

@@ -1,8 +1,8 @@
 from screens.login import login
+from screens.register import sign_up
 
 
 if __name__ == "__main__":
-
     while True:
         template = """
     [ Bank App ]
@@ -16,4 +16,6 @@ if __name__ == "__main__":
         if choice == "1":
             login()
         else:
-            print("Invalid choice")
+            sign_up()
+
+        continue

@@ -7,11 +7,11 @@ from utilities.generators import id_generator
 
 class User(SQLConnection):
 
-    """ User object for interacting with the User table in database """
+    """User object for interacting with the User table in database"""
 
     def __init__(self, **kwargs):
         super().__init__()
-        self.id: int = kwargs.get("id", None) # pylint: disable=invalid-name
+        self.id: int = kwargs.get("id", None)  # pylint: disable=invalid-name
         self.first_name: str = kwargs.get("first_name", None)
         self.last_name: str = kwargs.get("last_name", None)
         self.pin: int = kwargs.get("pin", None)
@@ -21,7 +21,7 @@ class User(SQLConnection):
         self.table_name = "user"
 
     def create_table(self) -> bool:
-        """ A function for creating table for the current object """
+        """A function for creating table for the current object"""
         if self.cursor:
             self.cursor.execute(
                 f"CREATE TABLE {self.table_name} ("
@@ -36,8 +36,10 @@ class User(SQLConnection):
             return True
         return False
 
-    def insert_one(self, first_name: str, last_name:str, pin: int): # pylint: disable=arguments-differ
-        """ A function that insert one data on a table """
+    def insert_one(
+        self, first_name: str, last_name: str, pin: int
+    ):  # pylint: disable=arguments-differ
+        """A function that insert one data on a table"""
         bank_account_no = id_generator()
         bank_account = BankAccount(conn=self.conn, cursor=self.cursor)
 
@@ -46,11 +48,13 @@ class User(SQLConnection):
             bank_account_no = id_generator()
 
         bank_account.insert_one(account_no=bank_account_no)
-        super().insert_one(first_name=first_name,
-                           last_name=last_name,
-                           pin=pin,
-                           bank_account_no=bank_account_no)
-        return True
+        super().insert_one(
+            first_name=first_name,
+            last_name=last_name,
+            pin=pin,
+            bank_account_no=bank_account_no,
+        )
+        return bank_account_no
 
     def get_all(self, operator="OR", **kwargs) -> List[User] | List[None]:
         users = []
@@ -59,13 +63,16 @@ class User(SQLConnection):
             bank_account_for_user = bank_account.get_one(account_no=user[4])
             if bank_account_for_user:
                 users.append(
-                    User(id=user[0],
+                    User(
+                        id=user[0],
                         first_name=user[1],
                         last_name=user[2],
                         pin=user[3],
                         bank_account_no=user[4],
-                        bank=BankAccount(account_no=bank_account_for_user.account_no,
-                                        balance=bank_account_for_user.balance)
+                        bank=BankAccount(
+                            account_no=bank_account_for_user.account_no,
+                            balance=bank_account_for_user.balance,
+                        ),
                     )
                 )
         return users
@@ -76,12 +83,15 @@ class User(SQLConnection):
             bank_account = BankAccount()
             bank_account_for_user = bank_account.get_one(account_no=user[4])
             if bank_account_for_user:
-                return User(id=user[0],
-                            first_name=user[1],
-                            last_name=user[2],
-                            pin=user[3],
-                            bank_account_no=user[4],
-                            bank=BankAccount(account_no=bank_account_for_user.account_no,
-                                            balance=bank_account_for_user.balance)
-                        )
+                return User(
+                    id=user[0],
+                    first_name=user[1],
+                    last_name=user[2],
+                    pin=user[3],
+                    bank_account_no=user[4],
+                    bank=BankAccount(
+                        account_no=bank_account_for_user.account_no,
+                        balance=bank_account_for_user.balance,
+                    ),
+                )
         return None

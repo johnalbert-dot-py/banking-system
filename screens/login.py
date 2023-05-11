@@ -3,8 +3,7 @@ from screens.dashboard import dashboard
 
 
 def login():
-
-    """ Dashboard screen for Log In """
+    """Dashboard screen for Log In"""
 
     print("\n=== LOGIN ====\n")
     stop = False
@@ -13,9 +12,9 @@ def login():
         account_no = input("Enter Account Number: ")
         pin = input("Enter PIN: ")
 
-        user = User().get_one(bank_account_no=account_no, pin=pin)
+        user = User().get_one(bank_account_no=account_no, pin=pin, operator="AND")
         if user is None:
             print("Invalid username or password")
         else:
+            dashboard(user.id)
             stop = True
-            return dashboard(user.id)

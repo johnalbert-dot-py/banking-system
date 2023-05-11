@@ -3,7 +3,6 @@ from utilities.bank_action import BankAction
 
 
 def dashboard(user_id: int):
-
     """Dashboard screen for bank"""
 
     stop = False
@@ -34,3 +33,9 @@ def dashboard(user_id: int):
 
         if choice == 1:
             bank_action.deposit()
+        elif choice == 2:
+            bank_action.withdraw()
+        elif choice == 3:
+            bank_action.transfer()
+        else:
+            print("Invalid choice: ", choice)
